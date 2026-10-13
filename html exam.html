@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Portal</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            width: 350px;
+            max-width: 85%;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px #33333355;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #4c51bf;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: #4c51bf;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #details {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f4ff;
+            overflow-wrap: anywhere;
+        }
+
+        #message {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>College Portal</h1>
+    <p style="text-align:center">Student Login</p>
+
+    <form id="loginForm">
+        <input type="text" id="name"
+               placeholder="Enter Student Name" required>
+
+        <input type="text" id="studentId"
+               placeholder="Enter Student ID" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p id="message"></p>
+
+    <div id="details">
+        <h2>Student Details</h2>
+        <p><b>Name:</b> <span id="showName"></span></p>
+        <p><b>Student ID:</b> <span id="showId"></span></p>
+        <p><b>Department:</b> <span id="showDepartment"></span></p>
+        <p><b>Marks:</b> <span id="showMarks"></span> / 500</p>
+        <p><b>Accommodation:</b> <span id="showAccommodation"></span></p>
+        <p><b>Phone Number:</b> <span id="showPhone"></span></p>
+
+        <button type="button" onclick="logout()">Logout</button>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById("loginForm")
+        .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        let name = document.getElementById("name").value.trim();
+        let id = document.getElementById("studentId").value.trim();
+
+        if (name === "" || id === "") {
+            document.getElementById("message").textContent =
+                "Please enter name and student ID.";
+            return;
+        }
+
+        // Generate random student details
+        let marks = Math.floor(Math.random() * 201) + 300;
+        let accommodation = Math.random() < 0.5
+            ? "Hostel" : "Day Scholar";
+
+        let phone = "9" + Math.floor(
+            100000000 + Math.random() * 900000000
+        );
+
+        let departments = [
+            "Computer Science",
+            "Information Technology",
+            "Electronics",
+            "Mechanical Engineering",
+            "Civil Engineering"
+        ];
+
+        let department = departments[
+            Math.floor(Math.random() * departments.length)
+        ];
+
+        document.getElementById("showName").textContent = name;
+        document.getElementById("showId").textContent = id;
+        document.getElementById("showDepartment").textContent = department;
+        document.getElementById("showMarks").textContent = marks;
+        document.getElementById("showAccommodation").textContent =
+            accommodation;
+        document.getElementById("showPhone").textContent = phone;
+
+        document.getElementById("details").style.display = "block";
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("message").textContent = "";
+    });
+
+    function logout() {
+        document.getElementById("details").style.display = "none";
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("loginForm").reset();
+        document.getElementById("message").textContent = "";
+    }
+</script>
+
+</body>
+</html>
